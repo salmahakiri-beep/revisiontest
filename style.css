@@ -1,0 +1,77 @@
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #eef2ff, #fdf2f8);
+    margin: 0;
+    padding: 30px 15px;
+    color: #27304f;
+}
+
+.fiche {
+    max-width: 320px;
+    margin: 30px auto;
+    padding: 28px 24px;
+    border-radius: 18px;
+    background: #ffffff;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(79, 91, 147, 0.15);
+    border: 1px solid #e5e7f5;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fiche:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 30px rgba(79, 91, 147, 0.22);
+}
+
+.fiche h1 {
+    font-size: 23px;
+    color: #354078;
+    margin: 0 0 20px;
+    font-weight: 700;
+}
+
+.badge {
+    display: inline-block;
+    padding: 7px 16px;
+    border-radius: 25px;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.badge-info {
+    background: linear-gradient(135deg, #5968b0, #354078);
+}
+
+.badge-elec {
+    background: linear-gradient(135deg, #ffc15a, #e69512);
+}
+
+.badge-defaut {
+    background: #8991a8;
+}
+
+.fiche p {
+    font-size: 15px;
+    color: #626b85;
+    margin: 18px 0 0;
+    line-height: 1.6;
+}
+
+.fiche p:last-child {
+    font-weight: 600;
+}
+
+body > p {
+    max-width: 320px;
+    margin: 15px auto;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    color: #354078;
+    font-size: 14px;
+    border-left: 4px solid #5968b0;
+}
