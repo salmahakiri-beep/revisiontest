@@ -1,205 +1,324 @@
----
+/* ===== JETONS DE DESIGN (palette bleu roi & bleu ciel) ===== */
+:root {
+    --bleu-nuit: #172554;
+    --bleu-roi: #254bb5;
+    --bleu-ciel: #60a5fa;
+    --accent: #3157c8;
+    --accent-fort: #2449a5;
+
+    --encre: #17233f;
+    --encre-douce: #34445f;
+    --surface: #fffefa;
+    --surface-translucide: rgb(255 255 255 / 0.94);
+    --bordure: #dce6f3;
+
+    --info-a: #ffffff;
+    --info-b: #f2f7ff;
+    --info-bordure: #e0e8f3;
+    --statut-a: #e8f1ff;
+    --statut-b: #d9eaff;
+    --statut-bordure: #c5dcff;
+    --derniere-bordure: #8abde9;
+    --derniere-texte: #24477e;
+    --icone-fond: #deedff;
+
+    --fond-a: #edf4ff;
+    --fond-b: #f8f9fc;
+    --fond-c: #e5f2ff;
+    --halo-1: #c9e4ff;
+    --halo-2: #d7edff;
+
+    --ombre: 27 54 105;
+    --police: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --encre: #e6edf9;
+        --encre-douce: #c3cee4;
+        --surface: #121a2e;
+        --surface-translucide: rgb(18 26 46 / 0.94);
+        --bordure: #2a3856;
+
+        --info-a: #17213a;
+        --info-b: #1a2745;
+        --info-bordure: #2a3856;
+        --statut-a: #1b2c55;
+        --statut-b: #1f3566;
+        --statut-bordure: #34508f;
+        --derniere-bordure: #4f86c0;
+        --derniere-texte: #b9d4f5;
+        --icone-fond: #22345f;
+        --accent-fort: #9cc0ff;
+
+        --fond-a: #0b1220;
+        --fond-b: #0e1626;
+        --fond-c: #0a1424;
+        --halo-1: #14264a;
+        --halo-2: #102040;
+
+        --ombre: 0 0 0;
+    }
+}
 
 * {
     box-sizing: border-box;
 }
 
+/* ===== PAGE ===== */
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: var(--police);
     margin: 0;
-    padding: 35px 20px 60px;
+    padding: 38px 20px 60px;
     min-height: 100vh;
-    color: #172554;
+    min-height: 100dvh;
+    color: var(--encre);
     background:
-        radial-gradient(circle at 10% 10%, #c7d2fe 0, transparent 32%),
-        radial-gradient(circle at 90% 80%, #bfdbfe 0, transparent 30%),
-        linear-gradient(135deg, #eff6ff, #f5f3ff 55%, #e0f2fe);
+        radial-gradient(circle at 0% 0%, var(--halo-1) 0, transparent 32%),
+        radial-gradient(circle at 100% 90%, var(--halo-2) 0, transparent 30%),
+        linear-gradient(135deg, var(--fond-a), var(--fond-b) 55%, var(--fond-c));
 }
 
-
+/* ===== BLOCS STATUT & FILIERE ===== */
+/* Conseil : remplacer "body > p" par une classe (ex. .bloc-statut) */
 body > p {
-    max-width: 490px;
+    max-width: 850px;
     margin: 12px auto;
-    padding: 17px 20px;
-    background: #ffffff;
-    border: 1px solid #e0e7ff;
-    border-left: 5px solid #6366f1;
-    border-radius: 13px;
-    color: #3730a3;
+    padding: 19px 24px;
+    background: var(--surface-translucide);
+    border: 1px solid var(--bordure);
+    border-left: 6px solid var(--accent);
+    border-radius: 14px;
+    color: var(--encre-douce);
     font-size: 15px;
     font-weight: 600;
-    box-shadow: 0 7px 20px rgba(30, 41, 100, 0.07);
-    transition: transform 0.25s ease;
+    box-shadow: 0 8px 25px rgb(var(--ombre) / 0.07);
 }
 
-body > p:hover {
-    transform: translateX(5px);
-}
-
-
+/* ===== CARTE ETUDIANTE ===== */
 .fiche {
+    --marge: clamp(16px, 4.5vw, 38px);
+    --icone: clamp(34px, 9vw, 42px);
+
     position: relative;
+    isolation: isolate;
     overflow: hidden;
-    max-width: 490px;
-    margin: 35px auto;
-    padding: 38px 30px 30px;
+    width: 100%;
+    max-width: 850px;
+    margin: 32px auto;
+    padding: 0 var(--marge) 36px;
     text-align: center;
-    background: #ffffff;
-    border: 1px solid #e0e7ff;
-    border-radius: 24px;
-    box-shadow: 0 22px 55px rgba(30, 41, 100, 0.13);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--surface);
+    border: 1px solid var(--bordure);
+    border-radius: 26px;
+    box-shadow: 0 22px 60px rgb(var(--ombre) / 0.13);
+    animation: apparition 0.5s ease-out both;
 }
 
-.fiche:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 28px 65px rgba(30, 41, 100, 0.18);
+/* Un seul mouvement d'entree, pas d'effets au survol sur du contenu non cliquable */
+@keyframes apparition {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
 }
 
-
+/* ===== BANDEAU BLEU ROI ===== */
 .fiche::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 115px;
-    background: linear-gradient(120deg, #312e81, #4f46e5, #818cf8);
-    z-index: 0;
+    z-index: -1;
+    inset: 0 0 auto 0;
+    height: clamp(140px, 22vw, 165px);
+    background: linear-gradient(115deg, var(--bleu-nuit) 0%, var(--bleu-roi) 52%, var(--bleu-ciel) 100%);
 }
 
-
+/* Cercle decoratif */
 .fiche::after {
     content: "";
     position: absolute;
-    width: 170px;
-    height: 170px;
-    top: -95px;
-    right: -45px;
-    border: 25px solid rgba(255, 255, 255, 0.12);
+    z-index: -1;
+    top: -105px;
+    right: -55px;
+    width: 220px;
+    height: 220px;
+    border: 28px solid rgb(255 255 255 / 0.13);
     border-radius: 50%;
     pointer-events: none;
 }
 
-
+/* ===== NOM & AVATAR ===== */
 .fiche h1 {
     position: relative;
     z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    margin: 0 0 23px;
-    color: #1e1b4b;
-    font-size: 28px;
-    font-weight: 750;
+    gap: 16px;
+    margin: 0 calc(var(--marge) * -1) 25px;
+    padding: clamp(38px, 6vw, 43px) 15px 0;
+    color: var(--encre);
+    font-size: clamp(25px, 5vw, 30px);
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    text-wrap: balance;
 }
 
+/* Initiales : <h1 data-initiales="AB"> ; "SH" sert de valeur par defaut */
 .fiche h1::before {
     content: "SH";
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 88px;
-    height: 88px;
-    border: 5px solid #ffffff;
+    width: clamp(88px, 14vw, 104px);
+    aspect-ratio: 1;
+    border: 6px solid var(--surface);
     border-radius: 50%;
-    background: linear-gradient(135deg, #c7d2fe, #e0e7ff);
-    color: #3730a3;
-    font-size: 27px;
+    background: linear-gradient(145deg, #e4f2ff, #b9dcff);
+    color: var(--accent-fort-fixe, #2449a5);
+    font-size: clamp(25px, 4vw, 30px);
     font-weight: 800;
-    box-shadow: 0 7px 20px rgba(30, 41, 100, 0.2);
+    box-shadow: 0 9px 26px rgb(17 37 84 / 0.22);
 }
 
+.fiche h1[data-initiales]::before {
+    content: attr(data-initiales);
+}
 
+/* ===== BADGE FILIERE (contrastes >= 4.5:1 avec le texte blanc) ===== */
 .badge {
     display: inline-block;
-    margin: 0 0 8px;
-    padding: 10px 20px;
-    border-radius: 30px;
+    margin: 0 0 12px;
+    padding: 12px 27px;
+    border: 1px solid rgb(255 255 255 / 0.25);
+    border-radius: 40px;
+    background: linear-gradient(110deg, #2449a5, #2f66d6);
     color: #ffffff;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 800;
-    letter-spacing: 1px;
-    box-shadow: 0 5px 15px rgba(79, 70, 229, 0.2);
+    letter-spacing: 0.7px;
+    box-shadow: 0 8px 20px rgb(37 78 181 / 0.2);
 }
 
 .badge-info {
-    background: linear-gradient(135deg, #6366f1, #3730a3);
+    background: linear-gradient(110deg, #2449a5, #2f66d6);
 }
 
 .badge-elec {
-    background: linear-gradient(135deg, #f59e0b, #c2410c);
+    background: linear-gradient(110deg, #0b5f7a, #0e7490);
 }
 
 .badge-defaut {
-    background: linear-gradient(135deg, #94a3b8, #475569);
+    background: linear-gradient(110deg, #475569, #64748b);
 }
 
-
+/* ===== INFORMATIONS ETUDIANT ===== */
+/* Si une ligne contient du <strong>/<a>, envelopper le texte dans un <span> :
+   en flex, chaque element enfant devient sinon une colonne separee. */
 .fiche p {
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: clamp(65px, 11vw, 76px);
     margin: 17px 0 0;
-    padding: 17px 15px;
-    border: 1px solid #e0e7ff;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #f8faff, #eef2ff);
-    color: #3730a3;
-    font-size: 15px;
+    padding: 17px 20px;
+    border: 1px solid var(--info-bordure);
+    border-radius: 16px;
+    background: linear-gradient(120deg, var(--info-a), var(--info-b));
+    color: var(--encre-douce);
+    font-size: clamp(14px, 2.4vw, 16px);
     line-height: 1.7;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.fiche p:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 18px rgba(79, 70, 229, 0.1);
+/* Pastilles d'icone communes */
+.fiche p:nth-of-type(1)::before,
+.fiche p:nth-of-type(2)::before {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: var(--icone);
+    height: var(--icone);
+    border-radius: 50%;
+    font-size: calc(var(--icone) * 0.52);
 }
 
+.fiche p:nth-of-type(1)::before {
+    content: "▦";
+    background: var(--icone-fond);
+    color: var(--accent-fort);
+}
 
+/* Statut admis */
 .fiche p:nth-of-type(2) {
-    background: #ecfdf5;
-    border-color: #a7f3d0;
-    color: #047857;
+    background: linear-gradient(110deg, var(--statut-a), var(--statut-b));
+    border-color: var(--statut-bordure);
+    border-left: 5px solid var(--accent);
+    color: var(--accent-fort);
     font-weight: 700;
 }
 
+.fiche p:nth-of-type(2)::before {
+    content: "✓";
+    background: var(--accent);
+    color: #ffffff;
+    font-weight: 800;
+}
 
+/* Derniere information */
 .fiche p:last-child {
+    border-left: 5px solid var(--derniere-bordure);
+    color: var(--derniere-texte);
     font-weight: 700;
 }
 
-
+/* ===== PETITS ECRANS ===== */
 @media (max-width: 520px) {
     body {
-        padding: 22px 13px 40px;
+        padding: 22px 12px 35px;
     }
 
     body > p {
-        padding: 14px 15px;
+        padding: 15px 16px;
         font-size: 14px;
     }
 
     .fiche {
-        padding: 32px 18px 23px;
-        border-radius: 19px;
-    }
-
-    .fiche::before {
-        height: 105px;
-    }
-
-    .fiche h1 {
-        font-size: 24px;
-    }
-
-    .fiche h1::before {
-        width: 76px;
-        height: 76px;
-        font-size: 23px;
+        border-radius: 20px;
     }
 
     .fiche p {
         padding: 14px 10px;
-        font-size: 14px;
+    }
+
+    .badge {
+        padding: 10px 22px;
+    }
+}
+
+/* ===== ACCESSIBILITE & IMPRESSION ===== */
+@media (prefers-reduced-motion: reduce) {
+    .fiche {
+        animation: none;
+    }
+}
+
+@media print {
+    body {
+        background: #ffffff;
+        padding: 0;
+    }
+
+    .fiche,
+    body > p {
+        box-shadow: none;
+        animation: none;
+        break-inside: avoid;
+    }
+
+    .fiche {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 }
